@@ -38,7 +38,7 @@ async function create(req, res) {
     user.role = 'user';
     try {
         await user.save();
-        const token = jwt.sign( { _id: user._id }, config.secrets.session, { expiresIn: 60 * 60 * 5 });      
+        const token = jwt.sign( { uid: user._id }, config.secrets.session, { expiresIn: 60 * 60 * 5 });      
         res.json({ token });
     } catch (error) {
         console.log(error);
