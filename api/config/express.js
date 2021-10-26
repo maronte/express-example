@@ -7,9 +7,6 @@ const methodOverride = require('method-override');
 const errorHandler = require('errorhandler');
 const express = require('express');
 const config = require('./env');
-const passport = require('passport');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
 
 /**
  * Eneable configurations for the express app
@@ -23,16 +20,6 @@ module.exports = (app) => {
     app.use(express.json());
     app.use(express.json({ limit: '50mb' }));
     app.use(methodOverride());
-
-    // Session configuration
-    app.use(passport.initialize());
-    app.use(session({
-        secret: config.secrets.session,    
-        saveUninitialized: true,    
-        resave: false,
-        store: new MongoStore({ mongoUrl: config.mongo.uri })
-    }))
-
 
     if (env === 'development' || env === 'test') {
         app.use(errorHandler());

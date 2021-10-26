@@ -3,16 +3,9 @@
  */
 
 const express = require('express');
-
-const User = require('../api/user/user.model');
-const authLocal = require('./local/passport');
-const configPassportLocal = require('./local');
-
-// Passport configuration
-authLocal.setup(User);
-
+const auth = require('./auth.controller');
 const router = express.Router();
 
-router.use('/local', configPassportLocal);
+router.use('/login', auth.login);
 
 module.exports = router;

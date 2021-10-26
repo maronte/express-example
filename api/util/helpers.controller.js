@@ -32,7 +32,7 @@ function handleEntityNotFound(res, entity) {
 /**
  * Make a error response with description
  * @param {import("express").Response} res Response 
- * @param {import("mongoose").Model} entity Entity to display
+ * @param {Error} err Entity to display
  * @param {number} code Response status code
  * @returns {void}
  */
@@ -44,7 +44,7 @@ function handleError(res, err, code) {
 /**
  * Make a validation error response for post/create request
  * @param {import("express").Response} res Response 
- * @param {import("mongoose").Model} entity Entity to display
+ * @param {Error} err Entity to display
  * @param {number} code Response status code
  * @returns {void}
  */

@@ -41,6 +41,7 @@ async function create(req, res) {
         const token = jwt.sign( { _id: user._id }, config.secrets.session, { expiresIn: 60 * 60 * 5 });      
         res.json({ token });
     } catch (error) {
+        console.log(error);
         validationError(res, error);
     }
 }
