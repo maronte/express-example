@@ -41,7 +41,7 @@ const UserSchema = new Schema({
 
 UserSchema
     .path('role')
-    .validate(value => /admin|manager|user/i.test(value), 'role, assigned role is invalid');
+    .validate(value => /admin|user/i.test(value), 'role, assigned role is invalid');
 
 /**
  *  Virtuals
