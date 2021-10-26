@@ -4,45 +4,53 @@
 
 
 /**
- * Make a ok response if it has a entity, else return null
- * @param {import("express").Response} res 
- * @param {number} code 
- * @returns {Function}
+ * Make a ok response if it has a entity
+ * @param {import("express").Response} res Response 
+ * @param {import("mongoose").Model} entity Entity to display
+ * @param {number} code Response status code
+ * @returns {void}
  */
-function respondWithResult(res, code) {
+function respondWithResult(res, entity, code) {
     const statusCode = code || 200;
-    return (entity) => {
-        if (entity) {
-            res.status(statusCode).json(entity);
-        }
-    };
+    if (entity) {
+        res.status(statusCode).json(entity);
+    }
 }
 
 /**
- * Make a 404 response if model not exists
- * @param { import("express").Response } res 
- * @returns { import("mongoose").Model }
+ * Make a 404 response if entity don't exists
+ * @param {import("express").Response} res Response 
+ * @param {import("mongoose").Model} entity Entity to display
+ * @returns {void}
  */
-function handleEntityNotFound(res) {
-    return (entity) => {
-        if (!entity) {
-            res.status(404).end();
-            return null;
-        } 
-        return entity;
-    };
+function handleEntityNotFound(res, entity) {
+    if (!entity) {
+        res.status(404).end();
+    } 
 }
 
-function handleError(res, code) {
+/**
+ * Make a error response with description
+ * @param {import("express").Response} res Response 
+ * @param {import("mongoose").Model} entity Entity to display
+ * @param {number} code Response status code
+ * @returns {void}
+ */
+function handleError(res, err, code) {
     const statusCode = code || 500;
-    return (err) => {
-        res.status(statusCode).send(err);
-    };
+    res.status(statusCode).send(err);
 }
 
-function validationError(res, statusCode) {  
-    const statusCodeLocal = statusCode || 422;  
-    return err => res.status(statusCodeLocal).json(err);
+/**
+ * Make a validation error response for post/create request
+ * @param {import("express").Response} res Response 
+ * @param {import("mongoose").Model} entity Entity to display
+ * @param {number} code Response status code
+ * @returns {void}
+ */
+function validationError(res, err, statusCode) {  
+    const statusCodeLocal = statusCode || 422;
+    res.status(statusCodeLocal).json(err);  
 }
 
 module.exports = {

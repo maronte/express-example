@@ -16,10 +16,13 @@ const {
  * @param {import('express').Response} res 
  * @returns { Promise<import("mongoose").Model> }
  */
-function getAll(req, res) {
-    return Product.find().exec()
-            .then(respondWithResult(res))
-            .catch(handleError(res));
+async function getAll(req, res) {
+    try {
+        const products = await Product.find().exec(); 
+        respondWithResult(res, products);  
+    } catch (error) {
+        handleError(res, error);
+    }      
 }
 
 /**
@@ -28,10 +31,13 @@ function getAll(req, res) {
  * @param {import('express').Response} res 
  * @returns { Promise<import("mongoose").Model> }
  */
-function create(req, res) {
-    return Product.create(req.body)
-            .then(respondWithResult(res))
-            .catch(handleError(res));
+async function create(req, res) {
+    try {
+        const product = await Product.create(req.body);
+        respondWithResult(res, product);
+    } catch (error) {
+        handleError(res, error);
+    }
 }
 
 /**
@@ -40,11 +46,15 @@ function create(req, res) {
  * @param {import('express').Response} res 
  * @returns { Promise<import("mongoose").Model> }
  */
-function getById(req, res) {
-    return Product.findById(req.params.id).exec()
-        .then(handleEntityNotFound(res))    
-        .then(respondWithResult(res))    
-        .catch(handleError(res));
+async function getById(req, res) { 
+    try {
+        const product = await Product.findById(req.params.id).exec();
+        handleEntityNotFound(res, product);
+        respondWithResult(res, product);
+    } catch (error) {
+        console.log(error);
+        handleError(res, error);
+    }
 }
 
 /**
@@ -53,11 +63,14 @@ function getById(req, res) {
  * @param {import('express').Response} res 
  * @returns { Promise<import("mongoose").Model> }
  */
-function updateById(req, res) {
-    return Product.findByIdAndUpdate(req.params.id, req.body).exec()
-            .then(handleEntityNotFound(res))    
-            .then(respondWithResult(res))    
-            .catch(handleError(res));
+async function updateById(req, res) {
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body).exec();
+        handleEntityNotFound(res, product);
+        respondWithResult(res, product);
+    } catch (error) {
+        handleError(res, error);
+    }
 }
 
 /**
@@ -66,11 +79,14 @@ function updateById(req, res) {
  * @param {import('express').Response} res 
  * @returns { Promise<import("mongoose").Model> }
  */
-function deleteById(req, res) {
-    return Product.findByIdAndDelete(req.params.id, req.body).exec()
-            .then(handleEntityNotFound(res))    
-            .then(respondWithResult(res))    
-            .catch(handleError(res));
+async function deleteById(req, res) {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id, req.body).exec();
+        handleEntityNotFound(res, product);
+        respondWithResult(res, product);
+    } catch (error) {
+        handleError(res, error);
+    }
 }
 
 module.exports = {
