@@ -14,12 +14,4 @@ const ProductSchema = new Schema({
     slug: { type:String, trim: true }
 }, { timestamps: true });
 
-ProductSchema
-    .path('availableQuantity')
-    .validate((availableQuantity) => availableQuantity > 0, 'The available quantity must be greater than 0');
-
-ProductSchema
-    .path('price')
-    .validate((price) => price >= 0, 'The price cannot be negative value');
-
 module.exports = mongoose.model('Product', ProductSchema);

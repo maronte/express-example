@@ -52,7 +52,6 @@ async function getById(req, res) {
         handleEntityNotFound(res, product);
         respondWithResult(res, product);
     } catch (error) {
-        console.log(error);
         handleError(res, error);
     }
 }

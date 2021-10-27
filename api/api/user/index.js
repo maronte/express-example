@@ -6,8 +6,9 @@ const { Router } = require('express');
 const controller = require('./user.controller');
 const auth = require('../../auth/auth.service');
 const router = Router();
+const validation = require('./user.validations');
 
-router.post('/', controller.create);
+router.post('/', validation.validateUserData ,controller.create);
 router.get('/', auth.validateJWT, auth.isAdmin, controller.getAll);
 
 module.exports = router;
