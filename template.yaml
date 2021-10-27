@@ -4,9 +4,7 @@ Description: >
   
 Globals:
   Function:
-    Timeout: 600
-    Environment:
-      Variables: 
+    Timeout: 600 
 
 Resources:
   ExpressApi:

@@ -1,5 +1,5 @@
 /**
- * Setup a server for localdevelopment 
+ * Setup a server for local development 
  */
 
 const app = require('./index');

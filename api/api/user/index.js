@@ -1,5 +1,5 @@
 /**
- *  User
+ *  User routes
  */
 
 const { Router } = require('express');
